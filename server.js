@@ -19,12 +19,16 @@ mongoose.connection.once("open", () => {
 
 // INDUCES
 
+app.get("/", (req, res) => {
+  res.send("<h1>Hello TO MongoDB TEAM !</h1>");
+});
+
 // Index
 app.get("/fruits", (req, res) => {
   Fruit.find({})
     .then((allFruits) => {
       console.log(allFruits);
-      res.render("Index", { fruits: allFruits });
+      res.render("fruits/Index", { fruits: allFruits });
     })
     .catch((error) => {
       console.error(error);
@@ -33,7 +37,7 @@ app.get("/fruits", (req, res) => {
 
 // New
 app.get("/fruits/new", (req, res) => {
-  res.render("New");
+  res.render("fruits/New");
 });
 
 // Delete
@@ -63,7 +67,7 @@ app.post("/fruits", (req, res) => {
 app.get("/fruits/:id", (req, res) => {
   Fruit.findOne({ _id: req.params.id })
     .then((foundFruit) => {
-      res.render("Show", {
+      res.render("fruits/Show", {
         fruit: foundFruit,
       });
     })
